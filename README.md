@@ -64,7 +64,7 @@ curl -X POST localhost:8000/predict -H "Content-Type: application/json" \
 
 
 $r = Get-Content README.md -Raw -Encoding UTF8
-$r = $r.Replace('![MLflow runs](docs/mlflow-runs.png)','![MLflow runs](ss/ss2.png)').Replace('![Swagger](docs/swagger.png)','![Swagger](ss/ss1.png)')
+$r = $r.Replace('![MLflow runs](docs/mlflow-runs.png)','![MLflow runs](ss/mlflow-runs.png)').Replace('![Swagger](docs/swagger.png)','![Swagger](ss/ss1.png)')
 [System.IO.File]::WriteAllText((Join-Path (Get-Location) 'README.md'), $r, (New-Object System.Text.UTF8Encoding $false))
 Select-String 'ss/ss' README.md
 ## Project structure
