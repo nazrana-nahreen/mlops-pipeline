@@ -1,0 +1,10 @@
+data_path: data/raw/houses.csv
+tracking_uri: sqlite:///mlflow.db
+target: price
+test_size: 0.2
+seed: 42
+min_rows: 500
+price_range: [500000, 500000000]
+area_range: [200, 10000]
+max_bedrooms: 10
+max_floor: 30
