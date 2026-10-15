@@ -62,6 +62,11 @@ curl -X POST localhost:8000/predict -H "Content-Type: application/json" \
   -d '{"bedrooms":3,"bathrooms":3,"floor_no":4,"floor_area":1500,"city":"dhaka","area":"gulshan"}'
 ```
 
+
+$r = Get-Content README.md -Raw -Encoding UTF8
+$r = $r.Replace('![MLflow runs](docs/mlflow-runs.png)','![MLflow runs](ss/ss2.png)').Replace('![Swagger](docs/swagger.png)','![Swagger](ss/ss1.png)')
+[System.IO.File]::WriteAllText((Join-Path (Get-Location) 'README.md'), $r, (New-Object System.Text.UTF8Encoding $false))
+Select-String 'ss/ss' README.md
 ## Project structure
 
 ```
