@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Validate data
+        run: python src/validate.py
+      - name: Train
+        run: python src/train.py
+      - name: Register champion
+        run: python src/register.py
+      - name: Tests
+        run: pytest -q
+      - name: Build image
+        run: docker build -t house-price-api .
+      - name: Smoke test container
+        run: |
+          docker run -d -p 8000:8000 --name api house-price-api
+          for i in $(seq 1 20); do curl -sf localhost:8000/health && break || sleep 3; done
+          curl -sf -X POST localhost:8000/predict -H "Content-Type: application/json" \
+            -d '{"bedrooms":3,"bathrooms":3,"floor_no":4,"floor_area":1500,"city":"dhaka","area":"gulshan"}'
